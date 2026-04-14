@@ -14,7 +14,7 @@ const printer_setting = company.printer_setting;
 // const userRole = 'finance'; // contoh: 'superadmin', 'sales', 'finance', 'shipping'
 const userRole = user.role || "guest";
 
-const default_module = 'mitra';
+const default_module = 'product';
 // const default_module = getDefaultModule(userRole);
 // const default_module = 'product_form';
 

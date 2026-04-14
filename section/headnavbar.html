@@ -1,57 +1,74 @@
-  <!-- Top Navbar -->
-  <header class="fixed top-0 left-0 right-0 h-16 bg-white dark:bg-gray-800 shadow z-50 flex items-center justify-between px-4">
-    <div class="flex items-center gap-4">
-      <button id="desktopToggle" class="inline-flex md:inline-flex">←</button>
-        <div class="flex-shrink-0">
-          <img src="./assets/img/cropped-Logo-MKI.webp" alt="Logo" class="h-10 w-auto">
-        </div>
-        
-    </div>
-    <div>
-        <a id="devmode" class="text-green-400 bg-gray-800 p-2 hidden"></a>
-    </div>
-
-
-
-    <div class="flex items-center gap-4">
-            <div id="apiStatus" class="relative">
-        <button id="apiIndicatorToggle" class="relative text-gray-700 hover:bg-gray-200 dark:text-white rounded p-2">
-          <span id="apiIndicator">🔄</span>
-        </button>
-        <div id="apiIndicatorDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
-          <div class="p-4 text-sm text-gray-700 dark:text-white border-b border-gray-200 dark:border-gray-600"><span id="apiIndicatorText">Mengecek...</span></div>
-        </div>
-      </div>
-      <!-- <button id="toggleTheme" class="hidden md:block text-gray-700 hover:bg-gray-200 dark:text-white rounded p-2">🌓</button> -->
-      <!-- <div class="relative">
-        <button id="notificationToggle" class="relative text-gray-700 hover:bg-gray-200 dark:text-white rounded p-2">
-          🔔
-          <span class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full px-1.5">3</span>
-        </button>
-        <div id="notificationDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
-          <div class="p-4 text-sm text-gray-700 dark:text-white border-b border-gray-200 dark:border-gray-600">Belum ada notifikasi baru.</div>
-          <div class="px-4 py-2">
-            <button id="markAsReadBtn" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Tandai telah dibaca</button>
-          </div>
-        </div>
-      </div> -->
-      <div class="relative hidden md:block">
-        <button id="userDropdownToggle" class="text-sm text-gray-600 dark:text-white transition-colors flex items-center gap-2">
-          <!-- <span id="userDisplay">Admin</span> ⏷ -->
-          <span id="nameUser">Admin</span> ⏷
-        </button>
-        <div id="userDropdown" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
-          <a href="#" class="block px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">My Account</a>
-          <a href="#" id="logout" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900">Logout</a>
-        </div>
-      </div>
-      <div class="relative md:hidden">
-        <button id="mobileMenuToggle" class="text-xl">☰</button>
-        <div id="mobileMenuDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded shadow-md z-50">
-          <button id="mobileToggleTheme" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">🌓 Dark Mode</button>
-          <button id="mobileUserToggle" class="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">👤 Akun</button>
-          <button id="logout"  class="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900">🚪 Logout</button>
-        </div>
+<header class="fixed top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md dark:bg-gray-900 shadow-sm border-b border-gray-200 dark:border-gray-800 z-50 flex items-center justify-between px-4 lg:px-6 transition-colors duration-300">
+  <div class="flex items-center gap-2 md:gap-4">
+      <button id="desktopToggle" class="flex p-2 rounded-lg text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-400 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      
+      <div class="flex-shrink-0">
+        <img src="./assets/img/cropped-Logo-MKI.webp" alt="Logo" class="h-8 w-auto md:h-10">
       </div>
     </div>
-  </header>
+
+  <div>
+    <a id="devmode" class="text-green-400 bg-gray-800 p-2 hidden rounded-md text-xs font-medium"></a>
+  </div>
+
+  <div class="flex items-center gap-3 md:gap-4">
+    <div id="apiStatus" class="relative">
+      <button id="apiIndicatorToggle" class="relative p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 dark:text-gray-400 rounded-lg transition-colors">
+        <span id="apiIndicator" class="flex items-center justify-center">
+          <svg class="w-5 h-5 animate-spin-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+        </span>
+      </button>
+      <div id="apiIndicatorDropdown" class="hidden absolute right-0 mt-3 w-64 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-lg z-50 overflow-hidden transform opacity-100 scale-100 transition-all">
+        <div class="p-4 text-sm text-gray-600 dark:text-gray-300 font-medium"><span id="apiIndicatorText">Mengecek koneksi...</span></div>
+      </div>
+    </div>
+
+    <div class="relative hidden md:block">
+      <button id="userDropdownToggle" class="flex items-center gap-3 p-1.5 pr-3 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-full transition-all">
+        <div class="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold text-sm">
+          A
+        </div>
+        <span id="nameUser" class="text-sm font-medium text-gray-700 dark:text-gray-200">Admin</span>
+        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      <div id="userDropdown" class="hidden absolute right-0 mt-3 w-48 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-lg z-50 py-2">
+        <a href="#" class="flex items-center gap-2 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+          My Account
+        </a>
+        <div class="h-px bg-gray-100 dark:bg-gray-700 my-1"></div>
+        <a href="#" id="logout" class="flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+          Logout
+        </a>
+      </div>
+    </div>
+
+    <div class="relative md:hidden">
+      <button id="mobileMenuToggle" class="p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+      </button>
+      <div id="mobileMenuDropdown" class="hidden absolute right-0 mt-3 w-56 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-lg z-50 py-2">
+        <button id="mobileToggleTheme" class="flex w-full items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+          Dark Mode
+        </button>
+        <button id="mobileUserToggle" class="flex w-full items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+          Akun
+        </button>
+        <div class="h-px bg-gray-100 dark:bg-gray-700 my-1"></div>
+        <button id="logout" class="flex w-full items-center gap-3 px-4 py-3 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors font-medium">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

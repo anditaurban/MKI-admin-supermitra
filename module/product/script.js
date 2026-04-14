@@ -3,57 +3,52 @@ colSpanCount = 9;
 setDataType('product');
 fetchAndUpdateData();
 
-window.rowTemplate = function (item, index, perPage = 10) {
-  const { currentPage } = state[currentDataType];
-  const globalIndex = (currentPage - 1) * perPage + index + 1;
+  window.rowTemplate = function (item, index, perPage = 10) {
+    const { currentPage } = state[currentDataType];
+    const globalIndex = (currentPage - 1) * perPage + index + 1;
+  
+    return `
+  <tr class="flex flex-col sm:table-row border rounded sm:rounded-none mb-4 sm:mb-0 shadow-sm sm:shadow-none transition hover:bg-gray-50">
+    <td class="px-6 py-4 text-sm border-b sm:border-0 flex justify-between sm:table-cell bg-gray-800 text-white sm:bg-transparent sm:text-gray-700">
+      <span class="font-medium sm:hidden">Kode</span>
+      ${item.productcode}
+    </td>
+  
+     <td class="px-6 py-4 text-sm text-gray-700 border-b sm:border-0 flex justify-between sm:table-cell">
+    <span class="font-medium sm:hidden">Barang</span>  
+    ${item.product}
+    </td>
 
-  // --- Penanganan Dummy Data jika API kosong ---
-  // Default ke '-' jika gambar tidak ada
-  const gambar = item.image_url ? `<img src="${item.image_url}" alt="${item.product}" class="w-10 h-10 object-cover rounded" />` : `<span class="text-gray-400">—</span>`;
   
-  // Menyesuaikan harga Free & VIP (fallback ke sale_price atau 0)
-  const priceFree = item.price_free || item.sale_price || 0;
-  const priceVip = item.price_vip || item.wholesale_price || priceFree;
-  
-  // Dummy stok jika dari API tidak ada
-  const stok = item.stock !== undefined ? item.stock : (item.limitstock || 50); 
-  
-  // Dummy Kemitraan jika kosong
-  const kemitraan = item.business_categories && item.business_categories.length > 0 
-      ? item.business_categories.map(cat => cat.business_category).join(', ') 
-      : 'DCC-XTRA';
-
-  return `
-  <tr class="flex flex-col md:table-row border-b md:border-b transition hover:bg-gray-50 bg-white mb-4 md:mb-0 shadow-sm md:shadow-none">
-    
-    <td class="px-4 py-4 text-sm md:table-cell flex justify-between items-center border-b md:border-0">
-      <span class="font-bold md:hidden">Gambar:</span>
-      ${gambar}
+    <td class="px-6 py-4 text-sm text-right text-gray-700 border-b sm:border-0 flex justify-between sm:table-cell">
+      <span class="font-medium sm:hidden">Harga</span>
+      ${formatRupiah(item.sale_price)}
     </td>
   
-    <td class="px-4 py-4 text-sm font-medium text-gray-900 md:table-cell flex justify-between items-center border-b md:border-0">
-      <span class="font-bold md:hidden">Nama:</span>  
-      ${item.product || 'Nama Produk'}
+     <td class="px-6 py-4 text-sm text-center text-gray-700 border-b sm:border-0 flex justify-between sm:table-cell">
+    <span class="font-medium sm:hidden">Kategori</span>  
+    ${item.category}
     </td>
   
-    <td class="px-4 py-4 text-sm text-gray-600 md:table-cell flex flex-col md:block justify-between items-start md:items-center border-b md:border-0">
-      <div class="flex justify-between w-full md:block">
-        <span class="font-bold md:hidden">Harga:</span>
-        <div class="text-right md:text-left">
-          <div class="text-gray-800"><span class="font-semibold text-gray-600">Free:</span> ${formatRupiah(priceFree)}</div>
-          <div class="text-gray-500"><span class="font-semibold text-gray-600">VIP:</span> ${formatRupiah(priceVip)}</div>
-        </div>
-      </div>
+     <td class="px-6 py-4 text-sm text-right text-gray-700 border-b sm:border-0 flex justify-between sm:table-cell">
+    <span class="font-medium sm:hidden">Stok</span>  
+    ${finance(item.weight)} gr
     </td>
   
-    <td class="px-4 py-4 text-sm text-gray-800 md:table-cell text-center flex justify-between items-center border-b md:border-0">
-      <span class="font-bold md:hidden">Stok:</span>  
-      ${stok}
+     <td class="px-6 py-4 text-sm text-right text-gray-700 border-b sm:border-0 flex justify-between sm:table-cell">
+    <span class="font-medium sm:hidden">Kemitraan</span>  
+    ${item.business_categories.length > 0 
+          ? item.business_categories.map(cat => cat.business_category).join(', ') 
+          : '-'}
     </td>
   
-    <td class="px-4 py-4 text-sm text-gray-800 md:table-cell flex justify-between items-center border-b md:border-0">
-      <span class="font-bold md:hidden">Kemitraan:</span>  
-      ${kemitraan}
+  
+    <td class="px-6 py-4 text-sm text-center text-gray-700 flex justify-between sm:table-cell">
+      <span class="font-medium sm:hidden">Status</span>
+      <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium 
+        ${item.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+        ${item.status === 'Active' ? 'Active' : 'Inactive'}
+      </span>
       <div class="dropdown-menu hidden fixed w-48 bg-white border rounded shadow z-50 text-sm">
        <button onclick="event.stopPropagation(); loadModuleContent('product_form', '${item.product_id}', '${item.product.replace(/'/g, "\\'")}');" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
         ✏️ Edit Product
@@ -66,21 +61,9 @@ window.rowTemplate = function (item, index, perPage = 10) {
         </button>
       </div>
     </td>
-  
-   
-
   </tr>`;
-};
-
-// Pastikan Anda sudah memiliki fungsi formatRupiah di kode Anda. 
-// Jika belum ada, gunakan fungsi ini:
-function formatRupiah(angka) {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    minimumFractionDigits: 0
-  }).format(angka);
-}
+  };
+  
   
 
   document.getElementById('addButton').addEventListener('click', () => {
