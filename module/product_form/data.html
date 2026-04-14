@@ -1,0 +1,123 @@
+<div class="bg-white p-6">
+  <section class="section">
+
+    <!-- Header -->
+    <div class="flex flex-wrap items-start justify-between mb-6 gap-4">
+      <div>
+        <h1 id="formTitle" class="text-2xl font-bold mb-1">FORM INPUT PRODUK</h1>
+        <nav class="text-gray-500 text-sm flex items-center flex-wrap gap-1">
+          <span>Home</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <span>Produk</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+          <span class="font-medium">Input</span>
+        </nav>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button onclick="createData()" id="addButton" class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded">Simpan</button>
+        <button onclick="updateData()" id="updateButton" class="bg-yellow-600 hover:bg-yellow-700 text-white text-sm px-4 py-2 rounded">Update</button>
+        <button onclick="loadModuleContent('product')" class="bg-gray-300 text-sm px-4 py-2 rounded">⬅️ Kembali</button>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="flex gap-2 border-b border-gray-300">
+      <button 
+        class="tab-link active-tab text-sm flex items-center gap-2 py-1 px-3 bg-blue-100 hover:bg-blue-200 rounded-t-md text-blue-600 font-semibold"
+        data-tab="produk"
+        onclick="switchTab('produk')"
+      >
+        📦 <span class="menu-text hidden md:inline">Informasi Produk</span>
+      </button>
+      <button 
+        class="tab-link text-sm flex items-center gap-2 py-1 px-3 hover:bg-blue-200 rounded-t-md text-gray-600"
+        data-tab="harga"
+        onclick="switchTab('harga')"
+      >
+        💰 <span class="menu-text hidden md:inline">Harga & Kategori</span>
+      </button>
+    </div>
+
+    <!-- Tab Content -->
+    <div id="tabContentWrapper" class="pt-4">
+
+      <div id="tab-produk" class="tab-content">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <div>
+            <h2 class="text-blue-600 text-lg font-semibold mb-4">Informasi Utama</h2>
+
+            <div class="mb-4 flex flex-col sm:flex-row sm:items-center">
+              <label class="w-40 font-medium mb-1 sm:mb-0">Nama Produk <span class="text-red-500">*</span></label>
+              <input type="text" id="formProduct" placeholder="Masukkan nama produk" class="flex-1 border rounded px-3 py-2" />
+            </div>
+
+            <div class="mb-4 flex flex-col sm:flex-row sm:items-center">
+              <label class="w-40 font-medium mb-1 sm:mb-0">Kategori <span class="text-red-500">*</span></label>
+              <select id="formCategory" class="flex-1 border rounded px-3 py-2">
+                <option value="">Pilih kategori...</option>
+              </select>
+            </div>
+
+            <div class="mb-4 flex flex-col sm:flex-row sm:items-center">
+              <label class="w-40 font-medium mb-1 sm:mb-0">Stok <span class="text-red-500">*</span></label>
+              <input type="number" id="formStock" placeholder="0" class="flex-1 border rounded px-3 py-2" />
+            </div>
+
+            <div class="mb-4 flex flex-col sm:flex-row sm:items-start">
+              <label class="w-40 font-medium mt-2 mb-1 sm:mb-0">Keterangan</label>
+              <textarea id="formDescription" rows="3" placeholder="Tulis keterangan produk..." class="flex-1 border rounded px-3 py-2"></textarea>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="text-blue-600 text-lg font-semibold mb-4">Harga & Media</h2>
+
+            <div class="mb-4 flex flex-col sm:flex-row sm:items-center">
+              <label class="w-40 font-medium mb-1 sm:mb-0">Harga Free User</label>
+              <div class="flex flex-1">
+                <span class="bg-gray-100 border border-r-0 px-3 py-2 rounded-l text-sm flex items-center">Rp</span>
+                <input type="text" id="formPriceFree" placeholder="0" class="w-full border rounded-r px-3 py-2" />
+              </div>
+            </div>
+
+            <div class="mb-4 flex flex-col sm:flex-row sm:items-center">
+              <label class="w-40 font-medium mb-1 sm:mb-0">Harga VIP</label>
+              <div class="flex flex-1">
+                <span class="bg-gray-100 border border-r-0 px-3 py-2 rounded-l text-sm flex items-center">Rp</span>
+                <input type="text" id="formPriceVIP" placeholder="0" class="w-full border rounded-r px-3 py-2" />
+              </div>
+            </div>
+            <p id="warnPriceVIP" class="text-red-500 text-sm mt-1 hidden sm:ml-40">Harga VIP biasanya lebih murah dari harga Free.</p>
+
+            <div class="mb-4 flex flex-col sm:flex-row sm:items-start">
+              <label class="w-40 font-medium mt-2 mb-1 sm:mb-0">Gambar Produk</label>
+              <input type="file" id="formImage" accept="image/*" class="flex-1 border rounded px-3 py-2" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="tab-harga" class="tab-content hidden">
+        <div id="kategoriSection" class="mt-6">
+          <h2 class="text-blue-600 text-lg font-semibold mb-2">Pilih Kategori Bisnis</h2>
+
+          <input type="text" id="searchKategori" placeholder="Cari kategori..." class="border p-2 rounded w-full mb-2" />
+          <div id="selectedCount" class="text-sm text-gray-600 mb-2">0 kategori dipilih</div>
+
+          <form id="kategoriForm">
+            <div id="kategoriList" class="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-80 overflow-y-auto border p-3 rounded bg-gray-50">
+              </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>

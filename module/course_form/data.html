@@ -1,0 +1,112 @@
+<div class="bg-white p-6">
+  <section class="section">
+    <div class="flex flex-wrap items-start justify-between mb-6 gap-4">
+      <div>
+        <h1 id="formTitle" class="text-2xl font-bold mb-1">KELOLA COURSE</h1>
+        <nav class="text-gray-500 text-sm flex items-center flex-wrap gap-1">
+          <span>Home</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          <span>Course</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          <span class="font-medium text-gray-800">Input</span>
+        </nav>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <button id="importBtn" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-2 rounded font-medium">Import Excel</button>
+        <button id="downloadBtn" class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm px-4 py-2 rounded font-medium">Download format tabel</button>
+        <button onclick="loadModuleContent('course')" class="bg-gray-100 text-gray-600 hover:bg-gray-200 text-sm px-4 py-2 rounded font-medium">⬅️ Kembali</button>
+      </div>
+    </div>
+
+    <div class="flex gap-2 border-b border-gray-200 mb-6">
+      <button 
+        class="tab-link active-tab text-sm flex items-center gap-2 py-2 px-4 bg-blue-50 border-b-2 border-blue-600 text-blue-600 font-semibold"
+        data-tab="informasi"
+        onclick="switchTab('informasi')"
+      >
+        📚 <span class="hidden md:inline">Informasi Course</span>
+      </button>
+      <button 
+        class="tab-link text-sm flex items-center gap-2 py-2 px-4 hover:bg-gray-50 text-gray-500 font-medium border-b-2 border-transparent"
+        data-tab="kemitraan"
+        onclick="switchTab('kemitraan')"
+      >
+        🤝 <span class="hidden md:inline">Kemitraan</span>
+      </button>
+    </div>
+
+    <div id="tabContentWrapper">
+
+      <div id="tab-informasi" class="tab-content block">
+        <h2 class="text-lg font-bold text-gray-800 mb-4">Tambah Course</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Judul Course</label>
+            <input type="text" id="formJudul" placeholder="Contoh: Memasak Ayam Bakar" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Instructor</label>
+            <input type="text" id="formInstruktur" placeholder="Nama pengajar" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Durasi</label>
+            <input type="text" id="formDurasi" placeholder="Contoh: 2 Jam" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Kategori</label>
+            <input type="text" id="formKategori" placeholder="Masakan Nusantara" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Embed Video URL (YouTube)</label>
+            <input type="url" id="formVideoUrl" placeholder="https://www.youtube.com/watch?v=xxxxx" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Thumbnail Course</label>
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 w-48 transition">
+              <svg class="w-8 h-8 text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+              <span class="text-sm text-gray-600 font-medium">Klik untuk upload</span>
+              <span class="text-xs text-gray-400 mt-1">JPG / PNG. File di bawah 1 MB.</span>
+              <input type="file" id="formThumbnail" accept="image/jpeg, image/png" class="hidden" />
+            </div>
+          </div>
+
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Deskripsi Course</label>
+            <textarea id="formDeskripsi" rows="4" placeholder="Tuliskan deskripsi singkat course" class="w-full border border-gray-300 rounded px-3 py-2 focus:ring-blue-500 focus:border-blue-500 outline-none"></textarea>
+          </div>
+
+          <div class="md:col-span-2 flex items-center mt-2">
+            <input type="checkbox" id="formVIP" class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer">
+            <label for="formVIP" class="ml-2 text-sm font-medium text-gray-800 cursor-pointer">Konten VIP</label>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-kemitraan" class="tab-content hidden">
+        <h2 class="text-lg font-bold text-gray-800 mb-2">Kemitraan</h2>
+        <p class="text-sm text-gray-500 mb-4">Centang kemitraan yang boleh mengakses course ini. Kosongkan semua = course tampil untuk semua kemitraan.</p>
+        
+        <div id="kategoriList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+          </div>
+      </div>
+
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-gray-200">
+      <button onclick="saveCourse()" id="btnSaveCourse" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded shadow-sm transition">
+        Tambah Course
+      </button>
+      <button onclick="updateCourse()" id="btnUpdateCourse" class="hidden bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2.5 px-6 rounded shadow-sm transition">
+        Update Course
+      </button>
+    </div>
+
+  </section>
+</div>

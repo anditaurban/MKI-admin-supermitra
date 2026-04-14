@@ -1,0 +1,104 @@
+<div class="bg-white p-6">
+  <section class="section">
+    <div class="flex flex-wrap items-start justify-between mb-6 gap-4">
+      <div>
+        <h1 id="formTitle" class="text-2xl font-bold mb-1">KELOLA KONTEN</h1>
+        <nav class="text-gray-500 text-sm flex items-center flex-wrap gap-1">
+          <span>Home</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          <span>Konten</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+          <span class="font-medium text-gray-800">Input</span>
+        </nav>
+      </div>
+      <button onclick="loadModuleContent('content')" class="text-gray-500 hover:text-gray-800 text-sm flex items-center gap-1 font-medium transition underline">
+        ⬅️ Kembali ke Dashboard
+      </button>
+    </div>
+
+    <hr class="my-6 border-gray-200">
+
+    <div class="space-y-6">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-4 rounded-xl border border-gray-200 shadow-sm gap-4">
+         <div>
+            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">JENIS KONTEN</label>
+            <div class="text-xl font-bold text-gray-800" id="displayJenisKonten">Brand</div>
+         </div>
+         <select id="formJenis" class="border border-gray-300 rounded-lg px-4 py-2.5 bg-white text-gray-700 focus:ring-blue-500 focus:border-blue-500 outline-none shadow-sm min-w-[260px] font-medium cursor-pointer">
+            <option value="brand">Brand</option>
+            <option value="review">Review Mitra</option>
+            <option value="tim">Tim / Divisi</option>
+            <option value="tentang">Tentang Kami (card)</option>
+            <option value="carousel">Carousel Akses Mitra</option>
+            <option value="download">Akses Mitra - File Download</option>
+         </select>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Judul</label>
+          <input type="text" id="formJudul" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Subjudul / Role</label>
+          <input type="text" id="formSubjudul" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-1.5">Isi / Deskripsi</label>
+        <textarea id="formDeskripsi" rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-blue-500 focus:border-blue-500 outline-none transition"></textarea>
+        <p class="text-xs text-gray-500 mt-1.5">Untuk review: isi testimoni. Untuk tim: deskripsi divisi. Untuk card/carousel: deskripsi singkat.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">URL Gambar</label>
+          <input type="text" id="formUrlGambar" placeholder="https://... (opsional jika upload file)" class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
+          <p class="text-xs text-gray-500 mt-1.5">Isi URL langsung atau upload file di bawah. File akan disimpan di server.</p>
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Link (opsional)</label>
+          <input type="text" id="formLink" placeholder="https://..." class="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Upload Gambar (opsional)</label>
+        <div id="dropzoneArea" class="border border-dashed border-gray-300 rounded-xl p-5 flex flex-col md:flex-row md:items-center justify-between bg-gray-50 hover:bg-gray-100 transition cursor-pointer gap-4">
+          <div class="flex-1">
+            <p id="fileNameDisplay" class="text-sm font-medium text-gray-600 mb-1">Belum ada file yang dipilih</p>
+            <p class="text-xs text-gray-500">Format: JPG, PNG, WEBP. File di bawah 1 MB.</p>
+            <p class="text-xs text-gray-400 mt-1">Jika memilih file dan menyimpan, gambar lama akan diganti.</p>
+          </div>
+          <button type="button" id="btnPilihFile" class="bg-white border border-red-200 text-red-600 font-semibold text-sm px-5 py-2 rounded-lg hover:bg-red-50 transition whitespace-nowrap shadow-sm">
+            Pilih File
+          </button>
+          <input type="file" id="formFile" class="hidden" accept="image/jpeg, image/png, image/webp" />
+        </div>
+      </div>
+
+      <div class="flex items-center gap-8">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1.5">Urutan Tampil</label>
+          <input type="number" id="formUrutan" value="0" class="w-24 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-blue-500 focus:border-blue-500 outline-none text-center transition" />
+        </div>
+        <div class="flex items-center mt-6">
+          <input type="checkbox" id="formAktif" checked class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 cursor-pointer">
+          <label for="formAktif" class="ml-2 text-sm font-medium text-gray-800 cursor-pointer">Aktif</label>
+        </div>
+      </div>
+
+      <div class="pt-6">
+        <button onclick="saveContent()" id="btnSave" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow transition">
+          Tambah Konten
+        </button>
+        <button onclick="updateContent()" id="btnUpdate" class="hidden bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg shadow transition">
+          Update Konten
+        </button>
+      </div>
+
+    </div>
+  </section>
+</div>
