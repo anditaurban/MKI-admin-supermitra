@@ -81,6 +81,7 @@ async function fetchAndUpdateData(id = null, filter = "") {
       id,
       filter
     );
+    console.log(`[DEBUG] Response untuk ${currentDataType}:`, response);
     if (!response || !response.tableData)
       throw new Error("Invalid response from the API");
 
@@ -200,6 +201,11 @@ function loadData() {
     row.innerHTML = window.rowTemplate(item, index);
     tableBody.appendChild(row);
   });
+  setTimeout(() => {
+    if (typeof loadSecuredImages === "function") {
+      loadSecuredImages();
+    }
+  }, 100); 
 }
 
 function getTableBody() {
