@@ -40,8 +40,19 @@
       </div>
     </div>
 
-    <div id="tableBody" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      </div>
+    <div class="overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200 mb-6">
+  <table class="w-full text-sm text-left text-gray-600">
+    <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-200">
+      <tr>
+        <th scope="col" class="px-6 py-4 w-16 text-center">No</th>
+        <th scope="col" class="px-6 py-4">Topik Course</th>
+        <th scope="col" class="px-6 py-4">Kategori Bisnis</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      </tbody>
+  </table>
+</div>
 
     <div class="mt-8 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
       <p id="infoText" class="hidden md:block text-sm text-gray-600 text-left"></p>

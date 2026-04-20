@@ -77,6 +77,7 @@ const endpointList = [
   "finance_account_payment",
   "product_category",
   "level",
+  "course",
   "courier",
 ];
 

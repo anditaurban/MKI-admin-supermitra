@@ -1,120 +1,57 @@
+// --- INISIALISASI ---
 pagemodule = 'Course'; // Sesuaikan modul
 setDataType('course'); // Mengatur endpoint ke course
+
+// Aktifkan kembali fetch dari API asli
 fetchAndUpdateData();
 
+// --- TEMPLATE BARIS TABEL ---
+// --- TEMPLATE BARIS TABEL ---
 window.rowTemplate = function (item, index, perPage = 10) {
-  // --- Penyiapan Data & Dummy Fallback ---
-  // Menggunakan fallback OR (||) jika API backend belum menyediakan field yang sesuai
-  const title = item.title || item.product || 'Judul Course Tidak Diketahui';
-  const category = item.category || 'Proses Awal'; // Dummy Kategori
-  
-  const kemitraan = item.business_categories && item.business_categories.length > 0 
-      ? item.business_categories.map(cat => cat.business_category).join(', ') 
-      : 'DCC-XTRA'; // Dummy Kemitraan
-      
-  const isVip = item.is_vip === 1 || item.is_vip === true; // Logika VIP badge
-  
-  // URL Gambar: Gunakan dari API, jika tidak ada pakai gambar dummy abu-abu
-  const imageUrl = item.image_url || item.thumbnail || 'https://via.placeholder.com/400x200?text=Gambar+Course';
-  
-  // Karena script Anda awalnya pakai product_id, saya sesuaikan agar mendukung course_id
-  const id = item.course_id || item.product_id || item.id;
+  // Ambil halaman saat ini untuk kalkulasi nomor urut
+  const currentPage = window.state && window.state['course'] ? window.state['course'].currentPage : 1;
+  const rowNum = (currentPage - 1) * perPage + (index + 1);
 
-  // --- Render HTML Kartu ---
+  // Mapping data dari JSON API Anda
+  const id = item.course_video_id; 
+  const topic = item.topic || 'Tanpa Judul'; 
+  const category = item.business_category || '-'; 
+  const status = item.status || 'Active'; // Fallback ke Active jika API belum ada field status
+  
+  // Mencegah error quote pada javascript
+  const safeTopic = topic.replace(/'/g, "\\'");
+
   return `
-  <div class="bg-white rounded-xl border border-gray-300 overflow-hidden flex flex-col hover:shadow-lg transition-shadow duration-300">
-    
-    <div class="relative h-48 w-full bg-gray-100 border-b border-gray-200">
-      <img src="${imageUrl}" alt="${title}" class="w-full h-full object-cover" />
-      
-      ${isVip ? `
-        <span class="absolute top-3 left-3 bg-yellow-400 text-black text-xs font-extrabold px-3 py-1 rounded shadow">
-          VIP
+    <tr class="bg-white border-b border-gray-100 hover:bg-slate-50 transition duration-200">
+      <td class="px-6 py-4 font-medium text-gray-900 text-center">${rowNum}</td>
+      <td class="px-6 py-4 font-semibold text-gray-800">${topic}</td>
+      <td class="px-6 py-4">
+        <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">
+          ${category}
         </span>
-      ` : ''}
-    </div>
-
-    <div class="p-5 flex-1 flex flex-col">
-      <h3 class="text-lg font-bold text-gray-900 mb-1 leading-snug">${title}</h3>
-      
-      <div class="text-blue-500 text-3xl leading-none mb-3" style="line-height: 0.5;">.</div>
-
-      <div class="text-sm text-gray-500 space-y-1 mb-4 flex-1">
-        <p>Kategori: ${category}</p>
-        <p>Kemitraan: ${kemitraan}</p>
+        <div class="dropdown-menu hidden fixed w-48 bg-white border rounded shadow z-50 text-sm">
+       <button onclick="event.stopPropagation(); loadModuleContent('course_form', '${id}', '${safeTopic}');" class="block w-full text-left px-4 py-2.5 hover:bg-slate-50 text-gray-700 transition">
+            ✏️ Edit Course
+          </button>
+        <button onclick="event.stopPropagation(); handleDelete('${id}')" class="block w-full text-left px-4 py-2.5 hover:bg-red-50 text-red-600 font-medium transition">
+            🗑 Delete Course
+          </button>
       </div>
-
-      <hr class="border-t-2 border-gray-200 mb-4" />
-
-      <div class="flex justify-between items-center text-sm font-medium">
-        <button onclick="loadModuleContent('course_form', '${id}', '${title.replace(/'/g, "\\'")}')" class="text-blue-600 hover:text-blue-800 transition">
-          Edit
-        </button>
-        <button onclick="handleDelete('${id}')" class="text-red-600 hover:text-red-800 transition">
-          Hapus
-        </button>
-      </div>
-    </div>
-    
-  </div>
+      </td>
+     
+    </tr>
   `;
 };
 
-// Navigasi ke Form Course
+
+
+// --- FUNGSI PENDUKUNG DROPDOWN ---
+
+
+
+// --- EVENT LISTENER ---
+// Navigasi ke Form Tambah Course
 document.getElementById('addButton').addEventListener('click', () => {
+  // Panggil form tanpa ID (Mode Tambah)
   loadModuleContent('course_form');
 });
-
-// Mematikan sementara fetch data dari API untuk melihat UI Dummy
-// fetchAndUpdateData(); 
-
-function renderDummyCourses() {
-  // 1. Buat array data dummy persis seperti di gambar
-  const dummyData = [
-    {
-      course_id: 1,
-      title: "Proses Marinasi Ayam",
-      category: "Proses Awal",
-      is_vip: true,
-      image_url: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?q=80&w=400&auto=format&fit=crop", // Gambar ilustrasi ayam
-      business_categories: [{ business_category: "DCC-XTRA" }]
-    },
-    {
-      course_id: 2,
-      title: "Membuat Air Celupan",
-      category: "Proses Awal",
-      is_vip: true,
-      image_url: "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?q=80&w=400&auto=format&fit=crop", // Gambar ilustrasi
-      business_categories: [{ business_category: "DCC-XTRA" }]
-    },
-    {
-      course_id: 3,
-      title: "Penuangan Tepung Crispy ke Wadah",
-      category: "Proses Awal",
-      is_vip: true,
-      image_url: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=400&auto=format&fit=crop", // Gambar ilustrasi
-      business_categories: [{ business_category: "DCC-XTRA" }]
-    }
-  ];
-
-  // 2. Pastikan variabel state bawaan script Anda tidak error saat membaca currentPage
-  window.state = window.state || {};
-  window.state['course'] = window.state['course'] || { currentPage: 1 };
-
-  // 3. Masukkan data dummy ke dalam kontainer HTML
-  const container = document.getElementById('tableBody');
-  container.innerHTML = ''; // Bersihkan kontainer dulu
-  
-  dummyData.forEach((item, index) => {
-    container.innerHTML += window.rowTemplate(item, index, 10);
-  });
-  
-  // Update teks info jika diperlukan
-  const infoText = document.getElementById('infoText');
-  if(infoText) infoText.innerHTML = "Menampilkan <b>1-3</b> dari <b>3</b> data (Mode Dummy)";
-}
-
-// Panggil fungsi render dummy
-renderDummyCourses();
-
-// ... [Pertahankan fungsi importData, handleFileRead, startImport, dll dari kode Anda sebelumnya, cukup pastikan endpoint mengarah ke '/add/course' di handleImport] ...
