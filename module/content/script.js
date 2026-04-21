@@ -50,6 +50,11 @@ window.rowTemplate = function (item, index, perPage = 10) {
       <span class="font-medium sm:hidden mt-2">Thumbnail</span>
       ${thumbnailHtml}
     </td>
+
+     <td class="px-6 py-4 text-sm border-b sm:border-0 flex justify-between sm:table-cell bg-gray-800 text-white sm:bg-transparent sm:text-gray-700">
+      <span class="font-medium sm:hidden mt-2">Thumbnail</span>
+      ${item.url}
+    </td>
   
     <td class="px-6 py-4 text-sm text-gray-700 border-b sm:border-0 flex justify-between sm:table-cell">
       <span class="font-medium sm:hidden">Kategori</span>  
@@ -70,20 +75,11 @@ window.rowTemplate = function (item, index, perPage = 10) {
       </span>
 
       <div class="dropdown-menu hidden fixed w-48 bg-white border rounded shadow z-50 text-sm">
-        <button onclick="event.stopPropagation(); loadModuleContent('business_category_form', '${item.business_category_id}', '${(item.business_category || '').replace(/'/g, "\\'")}');" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-         ✏️ Edit Category
-        </button>
+       
         <button onclick="event.stopPropagation(); openEditContentModal('${item.business_category_id}', '${item.url || ''}')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
           🖼️ Edit Konten
         </button>
-        ${
-          item.status === "Active"
-            ? `<button onclick="toggleStatus('${item.business_category_id}', '2')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">🔴 Inactivate</button>`
-            : `<button onclick="toggleStatus('${item.business_category_id}', '1')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">🟢 Activate</button>`
-        }
-        <button onclick="event.stopPropagation(); handleDelete(${item.business_category_id})" class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">
-          🗑 Delete Category
-        </button>
+        
       </div>
     </td>
     
