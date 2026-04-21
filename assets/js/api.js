@@ -2,7 +2,7 @@ const isLocalhost = [
   "localhost",
   "127.0.0.1",
   "mki.jagoinovasi.cloud",
-  "mki-order-system.vercel.app",
+  "mki-admin-supermitra.vercel.app",
 ].includes(window.location.hostname);
 
 const mode = isLocalhost ? "development" : "production";

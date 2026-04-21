@@ -2,8 +2,8 @@ const user = JSON.parse(localStorage.getItem("user") || "{}");
 const company = JSON.parse(localStorage.getItem("company") || "{}");
 
 // const owner_id = user.owner_id;
-const owner_id = 4427;
-const user_id = 5;
+const owner_id = user.owner_id;
+const user_id = user.user_id;
 const status_active = user.status_active;
 const level = user.level;
 const username = user.username;
@@ -48,9 +48,9 @@ const scriptsToLoad = [
 ];
 
 // if (!owner_id || !user_id || !level || !nama) {
-// if (!owner_id || !user_id || !level || !username) {
-//   window.location.href = "login.html";
-// }
+if (!owner_id || !user_id || !username) {
+  window.location.href = "login.html";
+}
 
 function formatRupiah(value) {
   return new Intl.NumberFormat("id-ID", {
