@@ -75,24 +75,10 @@ window.rowTemplate = function (item, index, perPage = 10) {
       </span>
       
       <div class="dropdown-menu hidden fixed w-48 bg-white border rounded shadow z-50 text-sm">
-        
-        <button onclick="event.stopPropagation(); loadModuleContent('product_form', '${item.product_id}', '${item.product.replace(/'/g, "\\'")}');" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
-          ✏️ Edit Product
-        </button>
-
         <button onclick="event.stopPropagation(); openEditPhotoModal('${item.product_id}')" class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-blue-600">
           🖼️ Edit Photo
         </button>
 
-        ${
-          item.status === "Active"
-            ? `<button onclick="toggleProductStatus('${item.product_id}', '2')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">🔴 Inactivate Product</button>`
-            : `<button onclick="toggleProductStatus('${item.product_id}', '1')" class="tblock w-full text-left px-4 py-2 hover:bg-gray-100">🟢 Activate Product</button>`
-        }
-        
-        <button onclick="event.stopPropagation(); handleDelete(${item.product_id})" class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">
-          🗑 Delete Product
-        </button>
       </div>
     </td>
   </tr>`;

@@ -23,8 +23,8 @@ window.rowTemplate = function (item, index, perPage = 10) {
 
   return `
     <tr class="bg-white border-b border-gray-100 hover:bg-slate-50 transition duration-200">
-      <td class="px-6 py-4 font-medium text-gray-900 text-center">${rowNum}</td>
-      <td class="px-6 py-4 font-semibold text-gray-800">${topic}</td>
+      <td class="px-6 py-4 text-gray-900 text-center">${rowNum}</td>
+      <td class="px-6 py-4 text-gray-800">${topic}</td>
       <td class="px-6 py-4">
         <span class="bg-blue-50 text-blue-700 text-xs font-bold px-3 py-1 rounded-full border border-blue-200">
           ${category}
@@ -33,9 +33,9 @@ window.rowTemplate = function (item, index, perPage = 10) {
        <button onclick="event.stopPropagation(); loadModuleContent('course_form', '${id}', '${safeTopic}');" class="block w-full text-left px-4 py-2.5 hover:bg-slate-50 text-gray-700 transition">
             ✏️ Edit Course
           </button>
-        <button onclick="event.stopPropagation(); handleDelete('${id}')" class="block w-full text-left px-4 py-2.5 hover:bg-red-50 text-red-600 font-medium transition">
-            🗑 Delete Course
-          </button>
+        <button onclick="event.stopPropagation(); handleDelete(${item.course_video_id})" class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600">
+          🗑 Delete Course
+        </button>
       </div>
       </td>
      
