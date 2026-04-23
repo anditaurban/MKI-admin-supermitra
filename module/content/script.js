@@ -74,12 +74,16 @@ window.rowTemplate = function (item, index, perPage = 10) {
         ${item.status === "Active" ? "Active" : "Inactive"}
       </span>
 
-      <div class="dropdown-menu hidden fixed w-48 bg-white border rounded shadow z-50 text-sm">
-       
-        <button onclick="event.stopPropagation(); openEditContentModal('${item.business_category_id}', '${item.url || ''}')" class="block w-full text-left px-4 py-2 hover:bg-gray-100">
+     <div class="dropdown-menu hidden fixed w-48 bg-white border rounded shadow z-50 text-sm">
+        
+        <button onclick="event.stopPropagation(); openEditContentModal('${item.business_category_id}', '${item.url || ''}')" class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition">
           🖼️ Edit Konten
         </button>
         
+        <button onclick="event.stopPropagation(); loadModuleContent('content_form', '${item.business_category_id}')" class="block w-full text-left px-4 py-2 hover:bg-gray-100 transition ">
+          📁 Kelola Media
+        </button>
+              
       </div>
     </td>
     
