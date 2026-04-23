@@ -23,15 +23,22 @@ async function jalankanInisialisasiMedia() {
 }
 
 // ==========================================
-// 3. FETCH DETAIL DATA (GET)
+// 3. FETCH DETAIL DATA (GET) - ANTI CACHE
 // ==========================================
 async function fetchDetailMedia(categoryId) {
   try {
     Swal.fire({ title: 'Memuat Data...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
 
-    const response = await fetch(`${baseUrl}/detail/business_category_media/${categoryId}`, {
+    // TAMBAHAN: ?t=${new Date().getTime()} memaksa browser mengambil data paling baru (Bypass Cache)
+    const urlAmanDariCache = `${baseUrl}/detail/business_category_media/${categoryId}?t=${new Date().getTime()}`;
+
+    const response = await fetch(urlAmanDariCache, {
       method: 'GET',
-      headers: { 'Authorization': `Bearer ${API_TOKEN}` }
+      headers: { 
+        'Authorization': `Bearer ${API_TOKEN}`,
+        'Cache-Control': 'no-cache', // Minta server jangan kasih data cache
+        'Pragma': 'no-cache'
+      }
     });
 
     if (!response.ok) throw new Error('Gagal mengambil data kemitraan dari server.');
@@ -45,6 +52,9 @@ async function fetchDetailMedia(categoryId) {
       document.getElementById('infoCategory').innerText = detail.business_category || '-';
       document.getElementById('infoDesc').innerText = detail.description || '-';
       document.getElementById('infoStatus').innerText = detail.status || 'Unknown';
+      
+      const subTitle = document.getElementById('kemitraanSubTitle');
+      if(subTitle) subTitle.innerText = `Kategori: ${detail.business_category}`;
 
       // Render Media Existing
       renderExistingMedia(detail.media || []);
@@ -205,10 +215,18 @@ async function updateSingleMedia(mediaId) {
 // ==========================================
 // 6. DELETE SINGLE MEDIA (DELETE)
 // ==========================================
+// ==========================================
+// 6. DELETE SINGLE MEDIA (DELETE)
+// ==========================================
 async function deleteSingleMedia(mediaId) {
   const confirm = await Swal.fire({
-    title: 'Hapus Media?', text: "Data tidak dapat dikembalikan!", icon: 'warning',
-    showCancelButton: true, confirmButtonColor: '#d33', cancelButtonColor: '#3085d6', confirmButtonText: 'Ya, Hapus!'
+    title: 'Hapus Media?', 
+    text: "Data tidak dapat dikembalikan!", 
+    icon: 'warning',
+    showCancelButton: true, 
+    confirmButtonColor: '#d33', 
+    cancelButtonColor: '#3085d6', 
+    confirmButtonText: 'Ya, Hapus!'
   });
 
   if (confirm.isConfirmed) {
@@ -220,7 +238,13 @@ async function deleteSingleMedia(mediaId) {
         headers: { 'Authorization': `Bearer ${API_TOKEN}` }
       });
 
-     if (response.ok) {
+      if (response.ok) {
+        // 1. HAPUS DARI LAYAR SECARA INSTAN (Optimistic Update)
+        const cardToRemove = document.querySelector(`.existing-media-card[data-id="${mediaId}"]`);
+        if (cardToRemove) {
+          cardToRemove.remove(); 
+        }
+
         Swal.fire({
           icon: 'success',
           title: 'Terhapus!',
@@ -228,8 +252,12 @@ async function deleteSingleMedia(mediaId) {
           timer: 1500,
           showConfirmButton: false
         }).then(() => {
-          fetchDetailMedia(window.detail_id); // Refresh setelah notif selesai
+          // 2. BERI JEDA 500ms SEBELUM LOAD ULANG DATA (Agar Database Sync)
+          setTimeout(() => {
+            fetchDetailMedia(window.detail_id); 
+          }, 500); 
         });
+
       } else {
         const errData = await response.json();
         Swal.fire('Gagal', errData.message || 'Gagal menghapus media.', 'error');
