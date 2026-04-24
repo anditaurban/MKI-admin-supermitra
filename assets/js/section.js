@@ -304,6 +304,7 @@ function renderSidebar() {
       ${createMenuItem("product", allMenus.product)}
       ${createMenuItem("course", allMenus.course)}
         ${createMenuItem("admin", allMenus.admin)}
+         ${createMenuItem("mitra", allMenus.mitra)}
     </div>
 
     
