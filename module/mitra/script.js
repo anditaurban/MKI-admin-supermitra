@@ -32,7 +32,7 @@ window.rowTemplate = function (item, index, perPage = 10) {
 
     return `
         <tr class="hover:bg-gray-50 transition border-b border-gray-100">
-            <td class="px-6 py-4 text-center text-gray-400 font-mono text-xs">${rowNum}</td>
+            <td class="px-6 py-4 text-center text-gray-400 font-mono text-xs">${item.no_membership || '-'}</td>
             <td class="px-6 py-4">
                 <div class="font-bold text-gray-800">${item.nama || '-'}</div>
                 <div class="text-[10px] text-blue-500 font-bold uppercase tracking-wider">${item.business_category || '-'}</div>
