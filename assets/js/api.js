@@ -71,7 +71,7 @@ const endpointList = [
   "client",
   "employee",
   "business_category",
-  "role",
+  "sales_coordinate",
   "product_unit",
   "product_status",
   "finance_account_payment",
